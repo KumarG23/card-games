@@ -14,7 +14,7 @@ class Card:
 class Deck:
     def __init__(self):
         self.cards = [] # empty list for cards
-        ranks = [ # each rank and its value in a dictionary stored within a list.
+        ranks = [ # each rank and its value in a separate dictionaries stored within a list.
             {'rank': 'A', 'value': 11},
             {'rank': '2', 'value': 2},
             {'rank': '3', 'value': 3},
@@ -80,7 +80,7 @@ class Hand:
     
     def display(self, show_all_dealer_cards=False): # dont want to show dealer cards until game is over.
         print(f'''{"dealer's" if self.dealer else "your"} hand: ''') # triple quote. pretty cool
-        # print dealer's hand if self.dealer is true else print your hand
+        # print dealer's hand if self.dealer is true else print your hand. triple quotes allows single and double quotes in the same line. 
 
         for index, card in enumerate(self.cards): #enumerate = built in to keep track of iterations in a loop.
             if index == 0 and self.dealer and not show_all_dealer_cards and not self.is_blackjack():
