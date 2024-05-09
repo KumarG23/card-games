@@ -68,7 +68,7 @@ class Deck:
         return winner
 
 
-# Get players' names from user input
+# Get player's names from user input
 name_one = input(f'Player one name: ')
 name_two = input(f'Player two name: ')
 # Create players with the provided names
