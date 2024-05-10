@@ -36,8 +36,7 @@ class Deck:
                 self.cards.append(Card(suit, rank)) # create and add each suit and rank to deck
 
     def shuffle(self): # shuffle deck method
-        if len(self.cards) > 1: # only shuffle deck if cards are greater than 1
-            random.shuffle(self.cards) # built in random
+        random.shuffle(self.cards) # built in random
 
     def deal(self, number): 
         cards_dealt = [] # list of cards that have been dealt.
