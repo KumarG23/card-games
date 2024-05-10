@@ -14,7 +14,7 @@ class Card:
 class Deck:
     def __init__(self):
         self.cards = [] # empty list for cards
-        ranks = [ # each rank and its value in a separate dictionaries stored within a list.
+        ranks = [ # each rank and its value in separate dictionaries stored within a list.
             {'rank': 'A', 'value': 11},
             {'rank': '2', 'value': 2},
             {'rank': '3', 'value': 3},
@@ -33,7 +33,7 @@ class Deck:
 
         for rank in ranks: # for loop for rank and suits
             for suit in suits:
-                self.cards.append(Card(suit, rank)) # append suit and rank
+                self.cards.append(Card(suit, rank)) # create and add each suit and rank to deck
 
     def shuffle(self): # shuffle deck method
         if len(self.cards) > 1: # only shuffle deck if cards are greater than 1
@@ -41,34 +41,34 @@ class Deck:
 
     def deal(self, number): 
         cards_dealt = [] # list of cards that have been dealt.
-        for x in range(number): # for loop with range of number. 
-            if len(self.cards) > 0: # if the length of cards is greater than 0 pop card then append the card to cards dealt
-                card = self.cards.pop()
-                cards_dealt.append(card)
-        return cards_dealt
+        for x in range(number):  # number of cards dealt
+            if len(self.cards) > 0: # ensures there are enough cards to deal
+                card = self.cards.pop() # add card from deck.
+                cards_dealt.append(card) # add card to cards dealt list.
+        return cards_dealt # return cards dealt
     
 
 class Hand:
     def __init__(self, dealer=False):
         self.cards = [] # list of cards for Hand class.
-        self.value = 0 # start with value of 0
-        self.dealer = dealer 
+        self.value = 0 # total value of hand
+        self.dealer = dealer # indicates dealers hand (boolean)
 
     def add_card(self, card_list): # add card function
-        self.cards.extend(card_list) # extend the card to the card_list
+        self.cards.extend(card_list) # add card or cards to hand.
 
     def calculate_value(self): #calculate value function
-        self.value = 0
-        has_ace = False # needed for ace to be 1 or 11
+        self.value = 0 # value of hand
+        has_ace = False # check if hand has an ace. needed for ace to be 1 or 11
 
         for card in self.cards:
             card_value = int(card.rank['value']) # card value = the card rank number
-            self.value += card_value # modify value with card value
+            self.value += card_value # modify value with current card value
             if card.rank['rank'] == 'A': #check if rank of card is ace. if so change has ace to true
                 has_ace = True
 
 
-        if has_ace and self.value > 21: # if has ace is true and value is > than 21 change self value to be whatever value is - 10. example if cards are A hearts and K hearts that would be 22 so we want ace to be 1 instead of 11.
+        if has_ace and self.value > 21: # if has ace is true and value is > than 21 change self value to be whatever value is - 10. example if cards are A hearts and K hearts 2 clubs that would be 23 so we want ace to be 1 instead of 11.
             self.value -= 10
 
     def get_value(self): # get value function
@@ -82,11 +82,11 @@ class Hand:
         print(f'''{"dealer's" if self.dealer else "your"} hand: ''') # triple quote. pretty cool
         # print dealer's hand if self.dealer is true else print your hand. triple quotes allows single and double quotes in the same line. 
 
-        for index, card in enumerate(self.cards): #enumerate = built in to keep track of iterations in a loop.
+        for index, card in enumerate(self.cards): # use enumerate to keep track of card index in the loop.
             if index == 0 and self.dealer and not show_all_dealer_cards and not self.is_blackjack():
                 print('hidden')
             else:
-                print(card) # hide one of the cards if dealer and not blackjack if these conditions are not met show all cards.
+                print(card) # hide first card of dealer hand if conditions are met. Print hidden to hide dealers first card. else print the card if not hidden or players hand.
 
         if not self.dealer:
             print('Value: ', self.get_value())
@@ -108,7 +108,7 @@ class Game:
         while game_number < games_to_play:
             game_number += 1 # while game number is less than games to play add 1 to game number
 
-            deck = Deck() # shuffle when Deck is called
+            deck = Deck() # shuffle when Deck before each game.
             deck.shuffle()
 
             player_hand = Hand()
@@ -130,7 +130,7 @@ class Game:
                 continue
 
             choice = '' # Hit or Stand
-            while player_hand.get_value() < 21 and choice not in ['s', 'stand']: # if choice is not s or stand give user choice to hit or stand.
+            while player_hand.get_value() < 21 and choice not in ['s', 'stand']: # if choice is not s or stand  and value is < 21 give user choice to hit or stand.
                 choice = input('Please choose "hit" or "stand" (or H/S): ').lower()
                 print() # choose hit or stand.
                 while choice not in ['h', 's', 'hit', 'stand']: # choices for input. if choice not recognized in list then tell user to choose hit or stand.
@@ -138,7 +138,7 @@ class Game:
                     print()
                 if choice in ['hit', 'h']: # if hit is chosen then add a card to player hand.
                     player_hand.add_card(deck.deal(1))
-                    player_hand.display()
+                    player_hand.display() 
 
             if self.check_winner(player_hand, dealer_hand): # check winner again.
                 continue
@@ -154,20 +154,23 @@ class Game:
             dealer_hand.display(show_all_dealer_cards=True) # at the end of the game show the dealers hand. 
 
             if self.check_winner(player_hand, dealer_hand):
-                continue
+                continue # if there is a winner, continue to next game
 
             print('Final Result')
+            # player and dealer hand values.
             print('Your hand: ', player_hand_value)
             print('Dealer hand: ', dealer_hand_value)
             # show the value of the cards in the final result. 
 
-            self.check_winner(player_hand, dealer_hand, True) # keeps while true true until winner is found. 
+            self.check_winner(player_hand, dealer_hand, True)
+            # check_winner method to determine the winner of the current game. Pass True as third argument to indicate that it's the end of the game.
 
         print('Thanks for playing!')
 
 
 
     def check_winner(self, player_hand, dealer_hand, game_over=False): # win conditions
+        # check game conditions when game is not over
         if not game_over:
             if player_hand.get_value() > 21:
                 print('You busted. Dealer wins!')
@@ -183,15 +186,15 @@ class Game:
                 return True
             elif dealer_hand.is_blackjack():
                 print('Dealer has blackjack. You lose!')
-                return True
-        else:
+                return True # return true indicates that a win condition has been met and the game is over.
+        else: # game is over
             if player_hand.get_value() > dealer_hand.get_value():
                 print('You win!')
             elif player_hand.get_value() == dealer_hand.get_value():
                 print('Tie!')
             else:
                 print('Dealer wins!')
-            return False # return false when game is over to stop the loop. 
+            return False # return false = game is over and no further actions need to be taken. 
     
 
 g = Game()
