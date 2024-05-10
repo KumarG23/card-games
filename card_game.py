@@ -16,7 +16,7 @@ class Players:
 # Define a class to represent the deck of cards
 class Deck:
     def __init__(self):
-        # Initialize the deck by creating it
+        # Initialize the deck
         self.create_deck()
 
     # Method to create a standard deck of cards
