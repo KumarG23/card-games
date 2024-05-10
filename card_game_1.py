@@ -56,7 +56,6 @@ def test_tie():
     test_card = ['5', 'Hearts']
     test_card2 = ['5', 'Spades']
     assert rank_values[test_card[0]] == rank_values[test_card2[0]]
-    # assert rank_values[2] == rank_values[
 
 
 test_tie()

@@ -40,7 +40,7 @@ class Deck:
 
     def deal(self, number): 
         cards_dealt = [] # list of cards that have been dealt.
-        for x in range(number):  # number of cards dealt
+        for x in range(number):  # number of cards dealt 
             if len(self.cards) > 0: # ensures there are enough cards to deal
                 card = self.cards.pop() # add card from deck.
                 cards_dealt.append(card) # add card to cards dealt list.
