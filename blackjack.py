@@ -108,13 +108,13 @@ class Game:
         while game_number < games_to_play:
             game_number += 1 # while game number is less than games to play add 1 to game number
 
-            deck = Deck() # shuffle when Deck before each game.
+            deck = Deck() # shuffle Deck before each game.
             deck.shuffle()
 
             player_hand = Hand()
             dealer_hand = Hand(dealer=True) # for dealer hand change dealer hand to true.
 
-            for i in range(2): # add two cards to hand
+            for i in range(2): # add two cards to hand (i = placeholder)
                 player_hand.add_card(deck.deal(1))
                 dealer_hand.add_card(deck.deal(1))
 
@@ -173,27 +173,27 @@ class Game:
         # check game conditions when game is not over
         if not game_over:
             if player_hand.get_value() > 21:
-                print('You busted. Dealer wins!')
+                print('You busted. Dealer wins! 😭')
                 return True
             elif dealer_hand.get_value() > 21:
-                print('Dealer busted. You win!')
+                print('Dealer busted. You win! 🏆')
                 return True
             elif dealer_hand.is_blackjack() and player_hand.is_blackjack():
-                print('Both players have blackjack! Tie!')
+                print('Both players have blackjack! Tie! 😬')
                 return True
             elif player_hand.is_blackjack():
-                print('You have blackjack. You win!')
+                print('You have blackjack. You win! 🏆')
                 return True
             elif dealer_hand.is_blackjack():
-                print('Dealer has blackjack. You lose!')
+                print('Dealer has blackjack. You lose! 😭')
                 return True # return true indicates that a win condition has been met and the game is over.
         else: # game is over
             if player_hand.get_value() > dealer_hand.get_value():
-                print('You win!')
+                print('You win! 🏆')
             elif player_hand.get_value() == dealer_hand.get_value():
-                print('Tie!')
+                print('Tie! 😬')
             else:
-                print('Dealer wins!')
+                print('Dealer wins! 😭')
             return False # return false = game is over and no further actions need to be taken. 
     
 
