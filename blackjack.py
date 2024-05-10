@@ -67,7 +67,7 @@ class Hand:
                 has_ace = True
 
 
-        if has_ace and self.value > 21: # if has ace is true and value is > than 21 change self value to be whatever value is - 10. example if cards are A hearts and K hearts 2 clubs that would be 23 so we want ace to be 1 instead of 11.
+        if has_ace and self.value > 21: # if has ace is true and value is > than 21 change self value to be whatever value is - 10. example if cards are A hearts, K hearts and 2 clubs that would be 23 so we want ace to be 1 instead of 11.
             self.value -= 10
 
     def get_value(self): # get value function
